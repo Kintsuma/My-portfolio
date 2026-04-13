@@ -5,6 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Ubaydullayev Sirojiddin</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- ═══ LOADING SCREEN + PERFORMANCE FIXES ═══ -->
+    <style>
+        #pageLoader {
+            position: fixed; inset: 0; z-index: 9999;
+            background: #0d0d0f;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #pageLoader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #pageLoader .ld-logo {
+            font-family: 'Bebas Neue', Georgia, serif; font-size: 22px;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #e8c87a, #f5dfa0);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        #pageLoader .ld-bar-wrap {
+            width: 180px; height: 2px;
+            background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
+        }
+        #pageLoader .ld-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #e8c87a, #f5dfa0); border-radius: 2px;
+            animation: loaderFill 1.8s ease-in-out forwards;
+        }
+        #pageLoader .ld-sub {
+            font-size: 11px; letter-spacing: 3px;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        @keyframes loaderFill { 0%{width:0%} 70%{width:80%} 100%{width:100%} }
+
+        /* Mobilda og'ir elementlarni o'chirish */
+        @media (max-width: 768px) {
+            .hero-float-card { animation: none !important; transform: none !important; }
+            .noise { display: none !important; }
+            body::before { display: none !important; }
+            .card-badge-new { animation: none !important; box-shadow: 0 0 10px rgba(232,69,69,0.4) !important; }
+            .shoe-card { backdrop-filter: none !important; }
+            .price-card { backdrop-filter: none !important; }
+            .testimonial-card { backdrop-filter: none !important; }
+            .brand-btn { backdrop-filter: none !important; }
+            .stats-strip { backdrop-filter: none !important; }
+        }
+        /* Foydalanuvchi animatsiyani o'chirib qo'ygan bo'lsa */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -45,9 +99,6 @@
         }
         .wrapper { position: relative; z-index: 1; }
 
-        /* ═══════════════════════════════
-           TOPBAR
-        ═══════════════════════════════ */
         .topbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             display: flex; align-items: center; justify-content: space-between;
@@ -103,7 +154,6 @@
         }
         .theme-btn:hover { border-color: var(--gold); transform: rotate(20deg); }
 
-        /* HAMBURGER MENU */
         .hamburger {
             display: none; flex-direction: column; justify-content: center; gap: 5px;
             width: 40px; height: 40px; cursor: pointer;
@@ -120,7 +170,6 @@
         .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* MOBILE NAV DRAWER */
         .mobile-nav {
             display: none; position: fixed; top: 58px; left: 0; right: 0; z-index: 99;
             background: rgba(13,13,15,0.97); backdrop-filter: blur(24px);
@@ -148,9 +197,6 @@
             padding: 10px 16px;
         }
 
-        /* ═══════════════════════════════
-           HERO
-        ═══════════════════════════════ */
         .hero { padding: 140px 40px 80px; position: relative; overflow: hidden; max-width: 1400px; margin: 0 auto; }
         .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .hero-eyebrow {
@@ -184,9 +230,6 @@
         .hero-visual-avail { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--green); }
         @keyframes float { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-14px) rotate(3deg)} }
 
-        /* ═══════════════════════════════
-           STATS — 5 ta, to'g'ri grid
-        ═══════════════════════════════ */
         .stats-strip {
             display: flex; justify-content: center; align-items: center;
             margin: 60px 40px 0; border: 1px solid var(--border); border-radius: 20px;
@@ -199,9 +242,6 @@
         .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; letter-spacing: 1px; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
         .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
 
-        /* ═══════════════════════════════
-           ABOUT
-        ═══════════════════════════════ */
         .section-about { max-width: 1400px; margin: 0 auto; padding: 100px 40px; }
         .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .about-label { font-size: 10px; font-weight: 800; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
@@ -224,9 +264,6 @@
         .showcase-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; }
         .showcase-sub { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 4px; letter-spacing: 1.5px; text-transform: uppercase; }
 
-        /* ═══════════════════════════════
-           PRICING
-        ═══════════════════════════════ */
         .section-pricing { max-width: 1400px; margin: 0 auto; padding: 80px 40px; }
         .pricing-title-wrap { text-align: center; margin-bottom: 60px; }
         .pricing-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
@@ -250,9 +287,6 @@
         .btn-price-outline { background: transparent; color: var(--gold); border: 1px solid rgba(232,200,122,0.4) !important; }
         .btn-price-outline:hover { background: rgba(232,200,122,0.08); }
 
-        /* ═══════════════════════════════
-           BRAND NAV
-        ═══════════════════════════════ */
         .brand-nav-wrap { padding: 0 40px 20px; position: sticky; top: 70px; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--border); transition: background 0.4s; }
         .brand-nav-top { padding: 16px 0 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
         .brand-nav-label { font-size: 10px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); }
@@ -267,9 +301,6 @@
         .brand-btn.active::before { opacity: 1; }
         .brand-btn.active span { color: #000; }
 
-        /* ═══════════════════════════════
-           GRID
-        ═══════════════════════════════ */
         .grid-section { max-width: 1400px; margin: 0 auto; padding: 60px 40px 100px; }
         .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; gap: 20px; flex-wrap: wrap; }
         .section-title-big { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 8rem); letter-spacing: 2px; line-height: 0.9; color: rgba(232,200,122,0.06); user-select: none; }
@@ -277,9 +308,6 @@
         #shoesView { transition: opacity 0.35s ease, transform 0.35s ease; }
         .shoes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 
-        /* ═══════════════════════════════
-           SHOE CARD
-        ═══════════════════════════════ */
         .shoe-card { border-radius: var(--card-radius); overflow: hidden; border: 1px solid var(--border); background: var(--surface); backdrop-filter: blur(16px); cursor: pointer; position: relative; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); }
         .shoe-card:hover { transform: translateY(-10px) scale(1.015); border-color: rgba(232,200,122,0.35); box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 50px rgba(232,200,122,0.07); }
         .card-img { position: relative; height: 300px; overflow: hidden; background: #0d0d0f; }
@@ -309,9 +337,6 @@
         .btn-cart-quick:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 12px rgba(61,191,122,0.3); }
         .btn-cart-quick.added { background: var(--green); border-color: var(--green); color: #fff; }
 
-        /* ═══════════════════════════════
-           CONTACT
-        ═══════════════════════════════ */
         .section-contact { max-width: 1400px; margin: 0 auto; padding: 0 40px 80px; }
         .contact-card { background: linear-gradient(135deg, var(--bg2), var(--bg3)); border: 1px solid rgba(232,200,122,0.2); border-radius: 32px; padding: 80px 60px; text-align: center; position: relative; overflow: hidden; }
         .contact-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,200,122,0.1) 0%, transparent 70%); }
@@ -326,9 +351,6 @@
         .btn-contact-outline { background: transparent; color: var(--muted); border: 1px solid var(--border) !important; }
         .btn-contact-outline:hover { border-color: rgba(232,200,122,0.3) !important; color: var(--text); }
 
-        /* ═══════════════════════════════
-           TESTIMONIALS
-        ═══════════════════════════════ */
         .section-testimonials { max-width: 1400px; margin: 0 auto; padding: 80px 40px; }
         .testimonials-title-wrap { text-align: center; margin-bottom: 60px; }
         .testimonials-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
@@ -342,9 +364,6 @@
         .testimonial-author { font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
         .testimonial-role { font-size: 12px; color: var(--muted); }
 
-        /* ═══════════════════════════════
-           FOOTER
-        ═══════════════════════════════ */
         .footer { max-width: 1400px; margin: 0 auto; padding: 30px 40px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
         .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .footer-copy { font-size: 12px; color: var(--muted); }
@@ -352,9 +371,6 @@
         .footer-link { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.3s; }
         .footer-link:hover { color: var(--gold); }
 
-        /* ═══════════════════════════════
-           MODAL
-        ═══════════════════════════════ */
         .modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(4,4,8,0.96); backdrop-filter: blur(24px); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
         .modal-overlay.open { opacity: 1; pointer-events: all; }
         .modal-box { background: var(--bg2); border: 1px solid rgba(232,200,122,0.2); border-radius: 28px; width: 100%; max-width: 1080px; max-height: 94vh; overflow-y: auto; position: relative; scrollbar-width: thin; scrollbar-color: rgba(232,200,122,0.2) transparent; }
@@ -410,9 +426,6 @@
         .btn-tg-new { width: 100%; padding: 15px 20px; border-radius: 12px; border: none; background: linear-gradient(135deg, #229ED9, #1a7bbf); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 24px rgba(34,158,217,0.3); }
         .btn-tg-new:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(34,158,217,0.45); }
 
-        /* ═══════════════════════════════
-           CART / FAV PANEL
-        ═══════════════════════════════ */
         .cart-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.4s; }
         .cart-overlay.open { opacity: 1; pointer-events: all; }
         .cart-sidebar { position: fixed; top: 0; right: 0; bottom: 0; z-index: 301; width: 380px; max-width: 95vw; background: var(--bg2); border-left: 1px solid var(--border); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
@@ -440,25 +453,16 @@
         .btn-checkout { width: 100%; padding: 15px; border-radius: 12px; border: none; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg,#229ED9,#1a7bbf); box-shadow: 0 6px 28px rgba(34,158,217,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(34,158,217,0.45); }
 
-        /* ═══════════════════════════════
-           TOAST
-        ═══════════════════════════════ */
         .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); z-index: 600; background: rgba(30,30,36,0.95); backdrop-filter: blur(20px); border: 1px solid rgba(61,191,122,0.4); border-radius: 50px; padding: 14px 24px; display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--text); box-shadow: 0 8px 32px rgba(0,0,0,0.4); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s; opacity: 0; max-width: 90vw; text-align: center; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         .section-divider { max-width: 1400px; margin: 0 auto; padding: 0 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
 
-        /* ═══════════════════════════════
-           ANIMATIONS
-        ═══════════════════════════════ */
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
         @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
         @keyframes modalSlideIn { from{opacity:0;transform:scale(0.88) translateY(50px)} to{opacity:1;transform:scale(1) translateY(0)} }
         .modal-overlay.open .modal-box { animation: modalSlideIn 0.45s cubic-bezier(0.34,1.4,0.64,1) both; }
 
-        /* ═══════════════════════════════════════════════════════
-           TABLET — 768px dan 1100px gacha
-        ═══════════════════════════════════════════════════════ */
         @media(max-width:1100px) and (min-width:769px){
             .topbar { padding: 0 24px; }
             .nav-link { padding: 6px 10px; font-size: 11px; letter-spacing: 1px; }
@@ -477,12 +481,7 @@
             .brand-nav-wrap { padding: 0 24px 16px; }
         }
 
-        /* ═══════════════════════════════════════════════════════
-           MOBIL — 768px va undan kichik
-        ═══════════════════════════════════════════════════════ */
         @media(max-width:768px){
-
-            /* Topbar */
             .topbar { padding: 0 16px; height: 58px; gap: 10px; }
             .topbar-logo { font-size: 15px; letter-spacing: 2px; }
             .topbar-nav { display: none; }
@@ -491,8 +490,6 @@
             .cart-btn { padding: 7px 10px; border-radius: 10px; gap: 0; }
             .theme-btn { width: 36px; height: 36px; font-size: 14px; }
             .hamburger { display: flex; }
-
-            /* Hero */
             .hero { padding: 78px 16px 40px; }
             .hero-inner { grid-template-columns: 1fr; gap: 28px; }
             .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
@@ -501,8 +498,6 @@
             .hero-visual-top { height: 160px; gap: 10px; }
             .hero-float-card { width: 72px; height: 100px; font-size: 1.5rem; }
             .hero-float-label { font-size: 7px; }
-
-            /* Stats — 5 ta element, 3+2 tartibda */
             .stats-strip {
                 display: grid !important;
                 grid-template-columns: repeat(3, 1fr);
@@ -514,38 +509,27 @@
                 border-bottom: 1px solid var(--border);
                 padding: 16px 10px;
             }
-            /* 1-qator: 1,2,3 — 3 ustun */
             .stat-item:nth-child(3) { border-right: none !important; }
-            /* 2-qator: 4,5 — ikkita, markazga */
             .stat-item:nth-child(4) { border-bottom: none; }
             .stat-item:nth-child(5) { border-right: none !important; border-bottom: none; }
-            /* 4 va 5 ni markazlash uchun grid span */
             .stat-item:nth-child(4) { grid-column: 1 / 2; }
             .stat-item:nth-child(5) { grid-column: 2 / 3; }
             .stat-num { font-size: 1.5rem; }
             .stat-label { font-size: 8px; letter-spacing: 1px; }
-
-            /* About */
             .section-about { padding: 50px 16px; }
             .about-inner { grid-template-columns: 1fr; gap: 32px; }
             .about-title { font-size: clamp(2rem, 11vw, 3.2rem); }
             .work-showcase { grid-template-columns: 1fr 1fr; }
             .showcase-card:first-child { grid-column: span 2; height: 140px; }
             .showcase-card:not(:first-child) { height: 110px; }
-
-            /* Pricing */
             .section-pricing { padding: 50px 16px; }
             .pricing-grid { flex-direction: column; align-items: center; gap: 16px; }
             .price-card { width: 100%; max-width: 420px; padding: 28px; }
             .price-card.featured { transform: none !important; }
             .price-card.featured:hover { transform: translateY(-4px) !important; }
-
-            /* Brand Nav */
             .brand-nav-wrap { padding: 0 16px 12px; top: 58px; }
             .brand-nav-top { padding: 10px 0 0; }
             .brand-btn { padding: 7px 14px; font-size: 10px; letter-spacing: 1px; }
-
-            /* Grid & Cards */
             .grid-section { padding: 30px 16px 60px; }
             .shoes-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
             .card-img { height: 170px; }
@@ -554,26 +538,16 @@
             .card-desc-short { font-size: 11px; }
             .section-title-big { font-size: clamp(2.5rem, 14vw, 5rem); }
             .card-price-pill { font-size: 14px; padding: 4px 9px; }
-
-            /* Contact */
             .section-contact { padding: 0 16px 50px; }
             .contact-card { padding: 40px 20px; border-radius: 20px; }
             .contact-title { font-size: clamp(1.6rem, 7vw, 3rem); }
             .contact-email { font-size: 1rem; }
             .contact-btns { flex-direction: column; gap: 10px; align-items: stretch; }
             .btn-contact { text-align: center; width: 100%; }
-
-            /* Testimonials */
             .section-testimonials { padding: 50px 16px; }
             .testimonial-grid { grid-template-columns: 1fr; }
-
-            /* Footer */
             .footer { flex-direction: column; align-items: center; text-align: center; padding: 20px 16px; gap: 14px; }
-
-            /* Cart Sidebar */
             .cart-sidebar { width: 100vw; max-width: 100vw; }
-
-            /* Modal */
             .modal-overlay { padding: 0; align-items: flex-end; }
             .modal-box { max-height: 90vh; border-radius: 22px 22px 0 0; }
             .modal-inner { grid-template-columns: 1fr; }
@@ -585,9 +559,6 @@
             .specs-mini { grid-template-columns: 1fr 1fr; }
         }
 
-        /* ═══════════════════
-           Kichik mobil (380px)
-        ═══════════════════ */
         @media(max-width:400px){
             .shoes-grid { grid-template-columns: 1fr !important; }
             .hero-title { font-size: clamp(2.8rem, 16vw, 4rem); }
@@ -597,6 +568,14 @@
     </style>
 </head>
 <body>
+
+<!-- ═══ LOADING SCREEN ═══ -->
+<div id="pageLoader">
+    <div class="ld-logo">Ubaydullayev Sirojiddin</div>
+    <div class="ld-bar-wrap"><div class="ld-bar"></div></div>
+    <div class="ld-sub">YUKLANMOQDA...</div>
+</div>
+
 <div class="noise"></div>
 <div class="wrapper">
 
@@ -622,7 +601,6 @@
         </div>
     </header>
 
-    <!-- Mobile Navigation Drawer -->
     <nav class="mobile-nav" id="mobileNav">
         <a href="#about" class="mobile-nav-link" onclick="closeMobileNav()">👤 Men haqimda</a>
         <a href="#pricing" class="mobile-nav-link" onclick="closeMobileNav()">💰 Narxlar</a>
@@ -877,50 +855,62 @@ function safeImg(src) { return (src && src.trim()) ? src : PLACEHOLDER_SVG; }
 
 const shoes = [
     { id:1, nomi:"Kintsuma Brand", brendi:"Freelance", model:"Minimalist Logotip", kategoriya:"Logotip", narx:"Loyiha asosida", yangi:true, olchamlar:["AI","EPS","PNG","SVG"], ranglar:["#1d05fa","#e8c87a"], tasvir:"images/1.webp", rasmlar:["images/1.webp","images/1-2 mockup.webp","images/1-3 mockup.webp","images/1-4 mockup.webp"], tavsif:"Kintsuma brendi uchun binafsha va ko'k ranglar uyg'unligidagi premium logotip dizayni.", specs:{Dastur:"Adobe Illustrator",Uslub:"Minimalizm",Muddat:"3 kun"}, tags:["Branding","Vector","Minimal"] },
-    { id:2, nomi:"Air Force Identity", brendi:"Nike Concept", model:"Klassik Logotip", kategoriya:"Logotip", narx:"Kelishilgan", yangi:false, olchamlar:["AI","PNG"], ranglar:["#ffffff","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Sport brendi uchun dinamik va esda qolarli logotip varianti.", specs:{Dastur:"Illustrator",Tipografiya:"Custom Sans",Muddat:"5 kun"}, tags:["Sport","Dynamic","Identity"] },
-    { id:3, nomi:"Retro Jordan Logo", brendi:"Jordan", model:"Vintage Emblem", kategoriya:"Logotip", narx:"200,000 so'm", yangi:true, olchamlar:["AI","EPS","PNG"], ranglar:["#8b1a1a","#1a1a1a","#e8c87a"], tasvir:"", rasmlar:[], tavsif:"Retro uslubdagi basketbol jamoasi logotipi.", specs:{Dastur:"Illustrator",Uslub:"Vintage"}, tags:["Retro","Sport"] },
-    { id:4, nomi:"Dunk SB Branding", brendi:"Skate Co", model:"Modern Logo", kategoriya:"Logotip", narx:"Kelishilgan", yangi:false, olchamlar:["AI","SVG","PNG"], ranglar:["#2c3e50","#1a1a1a","#e8c87a"], tasvir:"", rasmlar:[], tavsif:"Skateboarding brendi uchun zamonaviy yoshlarbop logotip.", specs:{Dastur:"Illustrator",Muddat:"4 kun"}, tags:["Street","Youth"] },
-    { id:5, nomi:"Infinity Run Logo", brendi:"Running Club", model:"Linear Logo", kategoriya:"Logotip", narx:"Loyiha asosida", yangi:true, olchamlar:["AI","PNG","SVG"], ranglar:["#4a90d9","#1a1a1a","#e84545"], tasvir:"", rasmlar:[], tavsif:"Yugurish klubi uchun chiziqli uslubdagi logotip.", specs:{Dastur:"Illustrator"}, tags:["Fitness","LineArt"] },
-    { id:6, nomi:"Pegasus Logo", brendi:"Sky Express", model:"Abstract Logo", kategoriya:"Logotip", narx:"Kelishilgan", yangi:false, olchamlar:["AI","EPS"], ranglar:["#1a1a1a","#4a90d9","#f5f0e8"], tasvir:"", rasmlar:[], tavsif:"Logistika kompaniyasi uchun mavhum qanot timsolidagi logotip.", specs:{Dastur:"Illustrator"}, tags:["Logistics","Abstract"] },
-    { id:7, nomi:"Ultraboost Energy", brendi:"Energy Drink", model:"Bold Logo", kategoriya:"Logotip", narx:"235,000 so'm", yangi:true, olchamlar:["AI","PNG","PSD"], ranglar:["#1a1a1a","#f5f0e8","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Energetik ichimlik uchun agressiv va qalin shriftli logotip.", specs:{Dastur:"Photoshop/AI"}, tags:["Bold","Energy"] },
-    { id:8, nomi:"Stan Smith Lux", brendi:"Fashion", model:"Monogram", kategoriya:"Logotip", narx:"98,000 so'm", yangi:false, olchamlar:["AI","EPS","PNG"], ranglar:["#f5f0e8","#2d5a27","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Luks kiyimlar brendi uchun monogramma logotipi.", specs:{Dastur:"Illustrator"}, tags:["Luxury","Monogram"] },
-    { id:9, nomi:"Forum Vintage", brendi:"Cafe", model:"Retro Logo", kategoriya:"Logotip", narx:"112,000 so'm", yangi:true, olchamlar:["AI","PNG"], ranglar:["#f5f0e8","#1a1a1a","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Vintage qahvaxona uchun klassik uslubdagi emblema.", specs:{Dastur:"Illustrator"}, tags:["Cafe","Vintage"] },
-   
-    { id:10, nomi:"Yeezy Album Cover", brendi:"Music", model:"Digital Art", kategoriya:"Cover Dizayn", narx:"450,000 so'm", yangi:false, olchamlar:["PSD","PNG","JPEG"], ranglar:["#1a1a1a","#f5f0e8","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Musiqiy albom uchun psixodelik va abstrakt cover dizayni.", specs:{Dastur:"Adobe Photoshop",Olcham:"3000x3000px"}, tags:["Music","Album","Digital"] },
-    { id:11, nomi:"Fire Red Book", brendi:"Publishing", model:"Book Cover", kategoriya:"Cover Dizayn", narx:"380,000 so'm", yangi:true, olchamlar:["PSD","PDF","PNG"], ranglar:["#e84545","#1a1a1a","#f5f0e8"], tasvir:"", rasmlar:[], tavsif:"Badiiy kitob uchun minimalist va sirlilikni aks ettiruvchi muqova.", specs:{Dastur:"Photoshop",Janr:"Badiiy"}, tags:["Book","Minimal","Print"] },
-    { id:12, nomi:"Space Jam Poster", brendi:"Movie", model:"Poster Design", kategoriya:"Cover Dizayn", narx:"Kelishilgan", yangi:false, olchamlar:["PSD","PDF","A2"], ranglar:["#4a90d9","#1a1a1a","#e84545"], tasvir:"", rasmlar:[], tavsif:"Kino afishasi uchun kompozitsion va dinamik poster dizayni.", specs:{Dastur:"Photoshop",Olcham:"A2"}, tags:["Movie","Poster","Art"] },
-    { id:13, nomi:"True Blue Magazine", brendi:"Fashion Mag", model:"Magazine Cover", kategoriya:"Cover Dizayn", narx:"350,000 so'm", yangi:true, olchamlar:["INDD","PDF","PNG"], ranglar:["#4a90d9","#1a1a1a","#f5f0e8"], tasvir:"", rasmlar:[], tavsif:"Moda jurnali uchun premium darajadagi muqova dizayni.", specs:{Dastur:"InDesign / PS"}, tags:["Fashion","Magazine"] },
-    { id:14, nomi:"Made in Blog", brendi:"Digital", model:"Social Media Cover", kategoriya:"Cover Dizayn", narx:"Kelishilgan", yangi:false, olchamlar:["PNG","JPEG","PSD"], ranglar:["#808080","#1a1a1a","#2c3e50"], tasvir:"", rasmlar:[], tavsif:"YouTube va LinkedIn uchun professional bannerlar dizayni.", specs:{Dastur:"Photoshop"}, tags:["Social","Banner"] },
-    { id:15, nomi:"Lifestyle Pack", brendi:"Vlog", model:"Thumbnail Design", kategoriya:"Cover Dizayn", narx:"87,000 so'm", yangi:false, olchamlar:["PNG","PSD"], ranglar:["#2c3e50","#808080","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"YouTube videolari uchun yuqori bosiluvchanlikka ega muqovalar.", specs:{Dastur:"Photoshop"}, tags:["YouTube","CTR"] },
-    { id:16, nomi:"Gore-Tex Tech", brendi:"Catalog", model:"Technical Cover", kategoriya:"Cover Dizayn", narx:"Kelishilgan", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#5c4a32","#1a1a1a","#808080"], tasvir:"", rasmlar:[], tavsif:"Texnik katalog va qo'llanmalar uchun professional muqova.", specs:{Dastur:"Illustrator"}, tags:["Technical","Print"] },
-    { id:17, nomi:"Metallic Future", brendi:"Sci-Fi", model:"Art Cover", kategoriya:"Cover Dizayn", narx:"165,000 so'm", yangi:true, olchamlar:["PSD","PNG","JPEG"], ranglar:["#c0c0c0","#1a1a1a","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Futuristik uslubdagi o'yin muqovasi (Game Cover).", specs:{Dastur:"Photoshop / Blender"}, tags:["Gaming","Sci-Fi"] },
-    { id:18, nomi:"Rock'n'Roll Retro", brendi:"Event", model:"Concert Poster", kategoriya:"Cover Dizayn", narx:"68,000 so'm", yangi:false, olchamlar:["AI","PDF","PNG"], ranglar:["#1a1a1a","#f5f0e8","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Retro konsertlar uchun nostalgik poster dizayni.", specs:{Dastur:"Illustrator"}, tags:["Event","Music"] },
-   
+    // { id:2, nomi:"Air Force Identity", brendi:"Nike Concept", model:"Klassik Logotip", kategoriya:"Logotip", narx:"Kelishilgan", yangi:false, olchamlar:["AI","PNG"], ranglar:["#ffffff","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Sport brendi uchun dinamik va esda qolarli logotip varianti.", specs:{Dastur:"Illustrator",Tipografiya:"Custom Sans",Muddat:"5 kun"}, tags:["Sport","Dynamic","Identity"] },
+    // { id:3, nomi:"Retro Jordan Logo", brendi:"Jordan", model:"Vintage Emblem", kategoriya:"Logotip", narx:"200,000 so'm", yangi:true, olchamlar:["AI","EPS","PNG"], ranglar:["#8b1a1a","#1a1a1a","#e8c87a"], tasvir:"", rasmlar:[], tavsif:"Retro uslubdagi basketbol jamoasi logotipi.", specs:{Dastur:"Illustrator",Uslub:"Vintage"}, tags:["Retro","Sport"] },
+    // { id:4, nomi:"Dunk SB Branding", brendi:"Skate Co", model:"Modern Logo", kategoriya:"Logotip", narx:"Kelishilgan", yangi:false, olchamlar:["AI","SVG","PNG"], ranglar:["#2c3e50","#1a1a1a","#e8c87a"], tasvir:"", rasmlar:[], tavsif:"Skateboarding brendi uchun zamonaviy yoshlarbop logotip.", specs:{Dastur:"Illustrator",Muddat:"4 kun"}, tags:["Street","Youth"] },
+    // { id:5, nomi:"Infinity Run Logo", brendi:"Running Club", model:"Linear Logo", kategoriya:"Logotip", narx:"Loyiha asosida", yangi:true, olchamlar:["AI","PNG","SVG"], ranglar:["#4a90d9","#1a1a1a","#e84545"], tasvir:"", rasmlar:[], tavsif:"Yugurish klubi uchun chiziqli uslubdagi logotip.", specs:{Dastur:"Illustrator"}, tags:["Fitness","LineArt"] },
+    // { id:6, nomi:"Pegasus Logo", brendi:"Sky Express", model:"Abstract Logo", kategoriya:"Logotip", narx:"Kelishilgan", yangi:false, olchamlar:["AI","EPS"], ranglar:["#1a1a1a","#4a90d9","#f5f0e8"], tasvir:"", rasmlar:[], tavsif:"Logistika kompaniyasi uchun mavhum qanot timsolidagi logotip.", specs:{Dastur:"Illustrator"}, tags:["Logistics","Abstract"] },
+    // { id:7, nomi:"Ultraboost Energy", brendi:"Energy Drink", model:"Bold Logo", kategoriya:"Logotip", narx:"235,000 so'm", yangi:true, olchamlar:["AI","PNG","PSD"], ranglar:["#1a1a1a","#f5f0e8","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Energetik ichimlik uchun agressiv va qalin shriftli logotip.", specs:{Dastur:"Photoshop/AI"}, tags:["Bold","Energy"] },
+    // { id:8, nomi:"Stan Smith Lux", brendi:"Fashion", model:"Monogram", kategoriya:"Logotip", narx:"98,000 so'm", yangi:false, olchamlar:["AI","EPS","PNG"], ranglar:["#f5f0e8","#2d5a27","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Luks kiyimlar brendi uchun monogramma logotipi.", specs:{Dastur:"Illustrator"}, tags:["Luxury","Monogram"] },
+    // { id:9, nomi:"Forum Vintage", brendi:"Cafe", model:"Retro Logo", kategoriya:"Logotip", narx:"112,000 so'm", yangi:true, olchamlar:["AI","PNG"], ranglar:["#f5f0e8","#1a1a1a","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Vintage qahvaxona uchun klassik uslubdagi emblema.", specs:{Dastur:"Illustrator"}, tags:["Cafe","Vintage"] },
+  
+    // { id:10, nomi:"Yeezy Album Cover", brendi:"Music", model:"Digital Art", kategoriya:"Cover Dizayn", narx:"450,000 so'm", yangi:false, olchamlar:["PSD","PNG","JPEG"], ranglar:["#1a1a1a","#f5f0e8","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Musiqiy albom uchun psixodelik va abstrakt cover dizayni.", specs:{Dastur:"Adobe Photoshop",Olcham:"3000x3000px"}, tags:["Music","Album","Digital"] },
+    // { id:11, nomi:"Fire Red Book", brendi:"Publishing", model:"Book Cover", kategoriya:"Cover Dizayn", narx:"380,000 so'm", yangi:true, olchamlar:["PSD","PDF","PNG"], ranglar:["#e84545","#1a1a1a","#f5f0e8"], tasvir:"", rasmlar:[], tavsif:"Badiiy kitob uchun minimalist va sirlilikni aks ettiruvchi muqova.", specs:{Dastur:"Photoshop",Janr:"Badiiy"}, tags:["Book","Minimal","Print"] },
+    // { id:12, nomi:"Space Jam Poster", brendi:"Movie", model:"Poster Design", kategoriya:"Cover Dizayn", narx:"Kelishilgan", yangi:false, olchamlar:["PSD","PDF","A2"], ranglar:["#4a90d9","#1a1a1a","#e84545"], tasvir:"", rasmlar:[], tavsif:"Kino afishasi uchun kompozitsion va dinamik poster dizayni.", specs:{Dastur:"Photoshop",Olcham:"A2"}, tags:["Movie","Poster","Art"] },
+    // { id:13, nomi:"True Blue Magazine", brendi:"Fashion Mag", model:"Magazine Cover", kategoriya:"Cover Dizayn", narx:"350,000 so'm", yangi:true, olchamlar:["INDD","PDF","PNG"], ranglar:["#4a90d9","#1a1a1a","#f5f0e8"], tasvir:"", rasmlar:[], tavsif:"Moda jurnali uchun premium darajadagi muqova dizayni.", specs:{Dastur:"InDesign / PS"}, tags:["Fashion","Magazine"] },
+    // { id:14, nomi:"Made in Blog", brendi:"Digital", model:"Social Media Cover", kategoriya:"Cover Dizayn", narx:"Kelishilgan", yangi:false, olchamlar:["PNG","JPEG","PSD"], ranglar:["#808080","#1a1a1a","#2c3e50"], tasvir:"", rasmlar:[], tavsif:"YouTube va LinkedIn uchun professional bannerlar dizayni.", specs:{Dastur:"Photoshop"}, tags:["Social","Banner"] },
+    // { id:15, nomi:"Lifestyle Pack", brendi:"Vlog", model:"Thumbnail Design", kategoriya:"Cover Dizayn", narx:"87,000 so'm", yangi:false, olchamlar:["PNG","PSD"], ranglar:["#2c3e50","#808080","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"YouTube videolari uchun yuqori bosiluvchanlikka ega muqovalar.", specs:{Dastur:"Photoshop"}, tags:["YouTube","CTR"] },
+    // { id:16, nomi:"Gore-Tex Tech", brendi:"Catalog", model:"Technical Cover", kategoriya:"Cover Dizayn", narx:"Kelishilgan", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#5c4a32","#1a1a1a","#808080"], tasvir:"", rasmlar:[], tavsif:"Texnik katalog va qo'llanmalar uchun professional muqova.", specs:{Dastur:"Illustrator"}, tags:["Technical","Print"] },
+    // { id:17, nomi:"Metallic Future", brendi:"Sci-Fi", model:"Art Cover", kategoriya:"Cover Dizayn", narx:"165,000 so'm", yangi:true, olchamlar:["PSD","PNG","JPEG"], ranglar:["#c0c0c0","#1a1a1a","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Futuristik uslubdagi o'yin muqovasi (Game Cover).", specs:{Dastur:"Photoshop / Blender"}, tags:["Gaming","Sci-Fi"] },
+    // { id:18, nomi:"Rock'n'Roll Retro", brendi:"Event", model:"Concert Poster", kategoriya:"Cover Dizayn", narx:"68,000 so'm", yangi:false, olchamlar:["AI","PDF","PNG"], ranglar:["#1a1a1a","#f5f0e8","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Retro konsertlar uchun nostalgik poster dizayni.", specs:{Dastur:"Illustrator"}, tags:["Event","Music"] },
+ 
     { id:19, nomi:"boAt Nirvana 751 ANC", brendi:"Tech", model:"Infografika", kategoriya:"Infografika", narx:"85,000 so'm", yangi:true, olchamlar:["PSD","PNG"], ranglar:["#1a1a1a","#f5f0e8"], tasvir:"images/Headphones.webp", rasmlar:["images/Headphones.webp"], tavsif:"Faol shovqinni bekor qilish (ANC) tizimiga ega boAt Nirvana 751.", specs:{Dastur:"Photoshop",Tur:"Infografika"}, tags:["Infografik","Vizual","Marketing"] },
     { id:20, nomi:"Skate Culture Map", brendi:"Culture", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:false, olchamlar:["AI","PNG"], ranglar:["#2c3e50","#1a1a1a","#e8c87a"], tasvir:"images/info1.webp", rasmlar:["images/info1.webp","images/info2.webp","images/info3.webp"], tavsif:"Madaniy jarayonlarni bosqichma-bosqich tushuntiruvchi infografika.", specs:{Dastur:"Photoshop"}, tags:["Infografik","Vizual","Marketing"] },
     { id:21, nomi:"Waterproof Tech", brendi:"Science", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#4a90d9","#1a1a1a","#f5f0e8"], tasvir:"images/Keyboard.webp", rasmlar:["images/Keyboard.webp"], tavsif:"Mahsulotning suvga chidamlilik xususiyatlarini ko'rsatuvchi sxema.", specs:{Dastur:"Photoshop / AI"}, tags:["Technical","Product"] },
     { id:22, nomi:"Olympic History", brendi:"Sports", model:"Infografika", kategoriya:"Infografika", narx:"75,000 so'm", yangi:false, olchamlar:["AI","PNG","PDF"], ranglar:["#1a1a1a","#e84545","#f5f0e8"], tasvir:"images/Mouse1.webp", rasmlar:["images/Mouse1.webp","images/Mouse.webp"], tavsif:"Olimpiada o'yinlari tarixini yorituvchi vaqt chizig'i.", specs:{Dastur:"Illustrator"}, tags:["History","Timeline"] },
     { id:23, nomi:"Running System", brendi:"Health", model:"Infografika", kategoriya:"Infografika", narx:"98,000 so'm", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#f5f0e8","#e84545","#4a90d9"], tasvir:"images/Ninja.webp", rasmlar:["images/Ninja.webp"], tavsif:"Inson anatomiyasi va yugurishning foydalari haqida vizual qo'llanma.", specs:{Dastur:"Illustrator"}, tags:["Health","Anatomy"] },
-    { id:24, nomi:"Anniversary Stats", brendi:"Corporate", model:"Infografika", kategoriya:"Infografika", narx:"210,000 so'm", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#4a90d9","#1a1a1a","#f5f0e8"], tasvir:"images/Power_bank.webp", rasmlar:["images/Power_bank.webp", "images/Power_bank1.webp"], tavsif:"Kompaniyaning 30 yillik yutuqlari statistik ko'rinishda.", specs:{Dastur:"Illustrator"}, tags:["Corporate","Stats"] },
+    { id:24, nomi:"Anniversary Stats", brendi:"Corporate", model:"Infografika", kategoriya:"Infografika", narx:"210,000 so'm", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#4a90d9","#1a1a1a","#f5f0e8"], tasvir:"images/Power_bank.webp", rasmlar:["images/Power_bank.webp","images/Power_bank1.webp"], tavsif:"Kompaniyaning 30 yillik yutuqlari statistik ko'rinishda.", specs:{Dastur:"Illustrator"}, tags:["Corporate","Stats"] },
     { id:25, nomi:"Long Distance Tips", brendi:"Coach", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:false, olchamlar:["AI","PNG"], ranglar:["#c8a96e","#f5f0e8","#1a1a1a"], tasvir:"images/Smartwatch.webp", rasmlar:["images/Smartwatch.webp"], tavsif:"Uzoq masofaga yugurishda to'g'ri nafas olish texnikasi.", specs:{Dastur:"Illustrator"}, tags:["Tips","Sport"] },
-    { id:26, nomi:"Triple Layer Process", brendi:"Manufacturing", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:false, olchamlar:["AI","PDF"], ranglar:["#f5f0e8","#1a1a1a","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Mahsulot qatlamlari va ishlab chiqarish jarayoni sxemasi.", specs:{Dastur:"AI"}, tags:["Process","Layers"] },
-    { id:27, nomi:"Speed Knit Chart", brendi:"Fabric", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#1a1a1a","#f5f0e8","#e84545"], tasvir:"", rasmlar:[], tavsif:"Matolarning elastikligi va chidamliligi haqida qiyosiy jadval.", specs:{Dastur:"Illustrator"}, tags:["Fabric","Comparison"] },
-   
+    // { id:26, nomi:"Triple Layer Process", brendi:"Manufacturing", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:false, olchamlar:["AI","PDF"], ranglar:["#f5f0e8","#1a1a1a","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Mahsulot qatlamlari va ishlab chiqarish jarayoni sxemasi.", specs:{Dastur:"AI"}, tags:["Process","Layers"] },
+    // { id:27, nomi:"Speed Knit Chart", brendi:"Fabric", model:"Infografika", kategoriya:"Infografika", narx:"Kelishilgan", yangi:true, olchamlar:["AI","PDF","PNG"], ranglar:["#1a1a1a","#f5f0e8","#e84545"], tasvir:"", rasmlar:[], tavsif:"Matolarning elastikligi va chidamliligi haqida qiyosiy jadval.", specs:{Dastur:"Illustrator"}, tags:["Fabric","Comparison"] },
+  
     { id:28, nomi:"Ace Bee Concept", brendi:"Personal", model:"Creative Art", kategoriya:"Shaxsiy loyiha", narx:"Sotilmaydi", yangi:false, olchamlar:["PNG","JPEG"], ranglar:["#f5f0e8","#2d5a27","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Tabiat va texnologiya uyg'unligi haqidagi shaxsiy illyustratsiya.", specs:{Dastur:"Procreate",Muddat:"1 hafta"}, tags:["Art","Concept"] },
     { id:29, nomi:"Rhyton Nostalgy", brendi:"Personal", model:"Photography Edit", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:true, olchamlar:["JPEG","RAW"], ranglar:["#f5f0e8","#c8a96e","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"80-yillar estetikasini qayta tiklash bo'yicha vizual tajriba.", specs:{Dastur:"Lightroom / PS"}, tags:["Vintage","Photo"] },
-    { id:30, nomi:"Downtown Minimal", brendi:"Personal", model:"UI/UX Concept", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:true, olchamlar:["Figma","PNG"], ranglar:["#f5f0e8","#1a1a1a","#2c3e50"], tasvir:"", rasmlar:[], tavsif:"Minimalist mobil ilova interfeysi dizayni.", specs:{Dastur:"Figma"}, tags:["UIUX","Mobile"] },
-    { id:31, nomi:"Off-White Industrial", brendi:"Personal", model:"3D Render", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["PNG","JPEG","MP4"], ranglar:["#f5f0e8","#1a1a1a","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Sanoat ob'ektlarining 3D modellashtirilgan ko'rinishi.", specs:{Dastur:"Blender"}, tags:["3D","Industrial"] },
-    { id:32, nomi:"Achilles Gold", brendi:"Personal", model:"Typography Art", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["AI","PNG"], ranglar:["#f5f0e8","#1a1a1a","#c8a96e"], tasvir:"", rasmlar:[], tavsif:"Oltin harflar bilan ishlangan kalligrafik dizayn.", specs:{Dastur:"Illustrator"}, tags:["Calligraphy","Gold"] },
-    { id:33, nomi:"Blazer Vintage Art", brendi:"Personal", model:"Mixed Media", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["PNG","JPEG"], ranglar:["#f5f0e8","#1a1a1a","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Qog'oz va raqamli chizmalarning aralashmasi.", specs:{Dastur:"Analog + Digital"}, tags:["MixedMedia","Art"] },
-    { id:34, nomi:"Cortez Legend", brendi:"Personal", model:"Storytelling", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["MP4","MOV","PNG"], ranglar:["#f5f0e8","#e84545","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Afsonaviy shaxslar haqida qisqa vizual hikoya.", specs:{Dastur:"After Effects"}, tags:["Video","Story"] },
-    { id:35, nomi:"Samba Football Art", brendi:"Personal", model:"Illustration", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["PNG","JPEG"], ranglar:["#1a1a1a","#f5f0e8","#556b2f"], tasvir:"", rasmlar:[], tavsif:"Futbol madaniyati va dizayn haqida illyustratsiya.", specs:{Dastur:"Procreate"}, tags:["Football","Illyustratsiya"] },
-    { id:36, nomi:"Gazelle Spezial Art", brendi:"Personal", model:"Poster Concept", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:true, olchamlar:["PSD","PNG"], ranglar:["#4a90d9","#1a1a1a","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Zamonaviy trendlar asosida yaratilgan shaxsiy poster.", specs:{Dastur:"Photoshop"}, tags:["Poster","Creative"] }
+    // { id:30, nomi:"Downtown Minimal", brendi:"Personal", model:"UI/UX Concept", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:true, olchamlar:["Figma","PNG"], ranglar:["#f5f0e8","#1a1a1a","#2c3e50"], tasvir:"", rasmlar:[], tavsif:"Minimalist mobil ilova interfeysi dizayni.", specs:{Dastur:"Figma"}, tags:["UIUX","Mobile"] },
+    // { id:31, nomi:"Off-White Industrial", brendi:"Personal", model:"3D Render", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["PNG","JPEG","MP4"], ranglar:["#f5f0e8","#1a1a1a","#4a90d9"], tasvir:"", rasmlar:[], tavsif:"Sanoat ob'ektlarining 3D modellashtirilgan ko'rinishi.", specs:{Dastur:"Blender"}, tags:["3D","Industrial"] },
+    // { id:32, nomi:"Achilles Gold", brendi:"Personal", model:"Typography Art", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["AI","PNG"], ranglar:["#f5f0e8","#1a1a1a","#c8a96e"], tasvir:"", rasmlar:[], tavsif:"Oltin harflar bilan ishlangan kalligrafik dizayn.", specs:{Dastur:"Illustrator"}, tags:["Calligraphy","Gold"] },
+    // { id:33, nomi:"Blazer Vintage Art", brendi:"Personal", model:"Mixed Media", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["PNG","JPEG"], ranglar:["#f5f0e8","#1a1a1a","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Qog'oz va raqamli chizmalarning aralashmasi.", specs:{Dastur:"Analog + Digital"}, tags:["MixedMedia","Art"] },
+    // { id:34, nomi:"Cortez Legend", brendi:"Personal", model:"Storytelling", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["MP4","MOV","PNG"], ranglar:["#f5f0e8","#e84545","#1a1a1a"], tasvir:"", rasmlar:[], tavsif:"Afsonaviy shaxslar haqida qisqa vizual hikoya.", specs:{Dastur:"After Effects"}, tags:["Video","Story"] },
+    // { id:35, nomi:"Samba Football Art", brendi:"Personal", model:"Illustration", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:false, olchamlar:["PNG","JPEG"], ranglar:["#1a1a1a","#f5f0e8","#556b2f"], tasvir:"", rasmlar:[], tavsif:"Futbol madaniyati va dizayn haqida illyustratsiya.", specs:{Dastur:"Procreate"}, tags:["Football","Illyustratsiya"] },
+    // { id:36, nomi:"Gazelle Spezial Art", brendi:"Personal", model:"Poster Concept", kategoriya:"Shaxsiy loyiha", narx:"Ko'rsatilmaydi", yangi:true, olchamlar:["PSD","PNG"], ranglar:["#4a90d9","#1a1a1a","#8b1a1a"], tasvir:"", rasmlar:[], tavsif:"Zamonaviy trendlar asosida yaratilgan shaxsiy poster.", specs:{Dastur:"Photoshop"}, tags:["Poster","Creative"] }
 ];
 
 const BRANDS = ["Barchasi","Logotip","Cover Dizayn","Infografika","Shaxsiy loyiha"];
 let activeBrand = "Barchasi";
 let favs = [];
 let ci = 0, cs = 0;
+
+/* ─── Loading Screen ─── */
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        var loader = document.getElementById('pageLoader');
+        if (loader) loader.classList.add('hidden');
+    }, 500);
+});
+setTimeout(function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) loader.classList.add('hidden');
+}, 3000);
 
 /* ─── Hamburger Menu ─── */
 var hamburger = document.getElementById('hamburger');
@@ -944,14 +934,12 @@ document.addEventListener('click', function(e) {
     }
 });
 
-/* ─── Scroll: topbar shadow + mobile nav top ─── */
 window.addEventListener('scroll', function() {
     document.getElementById('topbar').style.boxShadow =
         window.scrollY > 60 ? '0 4px 40px rgba(0,0,0,0.35)' : 'none';
     if (mobileNavOpen) closeMobileNav();
 });
 
-/* ─── Brand Nav ─── */
 var brandNav = document.getElementById('brandNav');
 BRANDS.forEach(function(b) {
     var btn = document.createElement('button');
